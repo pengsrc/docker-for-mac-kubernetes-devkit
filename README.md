@@ -77,10 +77,10 @@ $ docker run --rm -it nginx
 
 $ # Find out the IP address
 $ docker inspect `docker ps | grep nginx | awk '{print $1}'` | grep '"IPAddress"'
-"IPAddress": "172.32.0.2",
+"IPAddress": "172.16.0.11",
 
 $ # Visit
-$ curl http://172.32.0.2
+$ curl http://172.16.0.11
 <!DOCTYPE html>
 <html>
 <head>
