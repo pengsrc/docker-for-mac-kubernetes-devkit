@@ -11,7 +11,9 @@ HyperKit, you can't directly have interactions with the containers. More details
 
 To solve this problem, run an OpenVPN server container inside the VM with `host` network mode, then you can reach the containers with its internal IP. You can run the OpenVPN server with docker-compose or on Kubernetes.
 
-Works like this:
+Off course you can follow the docker-compose approach without Kubernetes.
+
+Generally, it Works like this:
 
 ``` Text
 Mac <-> Tunnelblick <-> socat/service <-> OpenVPN Server <-> Containers
