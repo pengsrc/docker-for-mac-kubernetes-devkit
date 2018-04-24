@@ -7,6 +7,7 @@ If you are using Kubernetes on Docker for Mac, some scripts in this repository m
 ## Table of Content
 
 - [Pod/Docker Network Access](#pod-docker-network-access)
+- [Nginx Ingress Controller](#nginx-ingress-controller)
 
 ## <a name="pod-docker-network-access">Pod/Docker Network Access</a>
 
@@ -90,6 +91,70 @@ $ curl http://172.16.0.11
 <head>
 <title>Welcome to nginx!</title>
 ...
+```
+
+## <a name="nginx-ingress-controller">Nginx Ingress Controller</a>
+
+In most times, a Kubernetes ingress controller is needed to manage all traffic, but there's no cloud available for a Mac.
+
+If you define your `service` type as `LoadBalancer` in Kubernetes, Docker for Mac will open a port on host machine. So we can deploy the [Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx) to serve and dispatch requests.
+
+First of all, stop anything that listing on port 80 or 443.
+
+``` Bash
+$ kubectl apply -f ingress-nginx/namespaces
+namespace "ingress-nginx" created
+
+$ kubectl apply -f ingress-nginx/configmaps
+configmap "nginx-configuration" created
+configmap "tcp-services" created
+configmap "udp-services" created
+
+$ kubectl apply -f ingress-nginx/deployments
+deployment "default-http-backend" created
+deployment "nginx-ingress-controller" created
+
+$ kubectl apply -f ingress-nginx/services
+service "default-http-backend" created
+service "nginx-ssl" created
+service "nginx" created
+```
+
+Now nginx ingress controller is listing on port 80 and 443, visit http://127.0.0.1 will see the default HTTP backend.
+
+``` Bash
+$ curl http://127.0.0.1
+default backend - 404
+```
+
+Check the ingress controller.
+
+``` Bash
+$ kubectl get all -n ingress-nginx
+NAME                              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/default-http-backend       1         1         1            1           21m
+deploy/nginx-ingress-controller   1         1         1            1           21m
+
+NAME                                     DESIRED   CURRENT   READY     AGE
+rs/default-http-backend-55c6c69b88       1         1         1         21m
+rs/nginx-ingress-controller-579f8bf799   1         1         1         21m
+
+NAME                              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/default-http-backend       1         1         1            1           21m
+deploy/nginx-ingress-controller   1         1         1            1           21m
+
+NAME                                     DESIRED   CURRENT   READY     AGE
+rs/default-http-backend-55c6c69b88       1         1         1         21m
+rs/nginx-ingress-controller-579f8bf799   1         1         1         21m
+
+NAME                                           READY     STATUS    RESTARTS   AGE
+po/default-http-backend-55c6c69b88-9rcr7       1/1       Running   0          21m
+po/nginx-ingress-controller-579f8bf799-4pfjk   1/1       Running   0          21m
+
+NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)         AGE
+svc/default-http-backend   ClusterIP      10.110.153.121   <none>        80/TCP          21m
+svc/nginx                  LoadBalancer   10.100.205.59    localhost     80:31764/TCP    21m
+svc/nginx-ssl              LoadBalancer   10.108.87.129    localhost     443:30592/TCP   21m
 ```
 
 ## License
