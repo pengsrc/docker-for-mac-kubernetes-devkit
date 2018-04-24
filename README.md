@@ -47,7 +47,7 @@ $ helm install -n docker-for-mac  -f local/values.yaml .
 
 ### Run OpenVPN server with docker-compose (Approach #2)
 
-Run the OpenVPN server, it'll generate certificates and configurations at the first time, maybe a little slow. After that, you will get the client config file at `./local/docker-for-mac.ovpn`.
+Run the OpenVPN server, it'll generate certificates and configurations at the first time, maybe a little slow.
 
 ``` Bash
 $ # Run
@@ -58,7 +58,7 @@ $ docker-compose logs -f
 
 ### Configure Client
 
-Add the subnets that you want to reach at bottom of the client config like below, and connect to the local OpenVPN server.
+Now, you will get the client config file at `./local/docker-for-mac.ovpn`. Add the subnets that you want to reach at bottom of the client config like below, and connect to the local OpenVPN server.
 
 ``` Config
 route 172.16.0.0 255.255.0.0
