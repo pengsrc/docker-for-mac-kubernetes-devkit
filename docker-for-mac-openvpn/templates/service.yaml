@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "docker-for-mac-openvpn.fullname" . }}
+  labels:
+    app: {{ template "docker-for-mac-openvpn.name" . }}
+    chart: {{ template "docker-for-mac-openvpn.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 31194
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "docker-for-mac-openvpn.name" . }}
+    release: {{ .Release.Name }}

@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  openvpn:
+    image: kylemanna/openvpn:2.4
+    volumes:
+      - .:/data
+      - ./local:/local
+      - ./local/configs:/etc/openvpn
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    environment:
+      DEBUG: 1
+    command: /data/setup.sh
+    restart: always
+
+  openvpn-proxy:
+    image: alpine/socat:1.0.2
+    ports:
+      - 1194:1194
+    command: TCP-LISTEN:1194,fork TCP:172.32.0.1:31194
+    restart: always
+    depends_on:
+      - openvpn

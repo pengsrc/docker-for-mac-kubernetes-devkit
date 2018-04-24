@@ -1,0 +1,49 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "docker-for-mac-openvpn.fullname" . }}
+  labels:
+    app: {{ template "docker-for-mac-openvpn.name" . }}
+    chart: {{ template "docker-for-mac-openvpn.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "docker-for-mac-openvpn.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "docker-for-mac-openvpn.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - /data/setup.sh
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: local
+              mountPath: /local
+            - name: configs
+              mountPath: /etc/openvpn
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+      hostNetwork: true
+      volumes:
+        - name: data
+          hostPath:
+            path: "{{ .Values.dirPath.data }}"
+        - name: local
+          hostPath:
+            path: "{{ .Values.dirPath.local }}"
+        - name: configs
+          hostPath:
+            path: "{{ .Values.dirPath.configs }}"
