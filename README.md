@@ -18,7 +18,7 @@ To solve this problem, run an OpenVPN server container inside the VM with `host`
 
 Off course you can follow the docker-compose approach without Kubernetes.
 
-Generally, it Works like this:
+Generally, it works like this:
 
 ``` Text
 Mac <-> Tunnelblick <-> socat/service <-> OpenVPN Server <-> Containers
