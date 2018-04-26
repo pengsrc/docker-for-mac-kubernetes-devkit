@@ -1,4 +1,4 @@
-# Development toolkit for Kubernetes on Docker for Mac
+# Development Toolkit for Kubernetes on Docker for Mac
 
 Docker for Mac (on Edge channel) includes a local Kubernetes cluster which is very delightful for test and development. Refer to the official document ([https://docs.docker.com/docker-for-mac/#kubernetes](https://docs.docker.com/docker-for-mac/#kubernetes)) to know how to get it up and running.
 
