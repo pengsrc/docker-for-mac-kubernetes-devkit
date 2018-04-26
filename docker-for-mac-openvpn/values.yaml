@@ -13,7 +13,7 @@ service:
   type: LoadBalancer
   port: 1194
 
-dirPath:
+dirPaths:
   # The project dir.
   data: /tmp/docker-for-mac-openvpn
   # Local dir to hold generated files.

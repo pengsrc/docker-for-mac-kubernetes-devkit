@@ -40,10 +40,10 @@ spec:
       volumes:
         - name: data
           hostPath:
-            path: "{{ .Values.dirPath.data }}"
+            path: "{{ .Values.dirPaths.data }}"
         - name: local
           hostPath:
-            path: "{{ .Values.dirPath.local }}"
+            path: "{{ .Values.dirPaths.local }}"
         - name: configs
           hostPath:
-            path: "{{ .Values.dirPath.configs }}"
+            path: "{{ .Values.dirPaths.configs }}"

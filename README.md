@@ -37,7 +37,7 @@ Mac <-> Tunnelblick <-> socat/service <-> OpenVPN Server <-> Containers
 2. Create local values file at `local/values.yaml` and specify local dirs.
 
 ``` Text
-dirPath:
+dirPaths:
   # The project dir.
   data: /tmp/docker-for-mac-kubernetes-devkit/docker-for-mac-openvpn
   # Local dir to hold generated files.
