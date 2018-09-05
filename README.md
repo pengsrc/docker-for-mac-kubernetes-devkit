@@ -49,7 +49,7 @@ dirPaths:
 3. Run the OpenVPN server.
 
 ``` Bash
-$ helm install -n docker-for-mac -f local/values.yaml .
+$ helm install -n docker-for-mac-openvpn --namespace docker-for-mac -f local/values.yaml .
 ```
 
 ### Run OpenVPN server with docker-compose (Approach #2)
