@@ -68,8 +68,8 @@ $ docker-compose logs -f
 Now, you will get the client config file at `./local/docker-for-mac.ovpn`. Add the subnets that you want to reach at bottom of the client config like below, and connect to the local OpenVPN server.
 
 ``` Config
-route 172.16.0.0 255.255.0.0
-route 10.96.0.1 255.240.0.0
+route 192.168.65.0 255.255.255.0
+route 10.96.0.0 255.240.0.0
 ```
 
 ### Test Network
